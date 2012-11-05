@@ -99,6 +99,23 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bold.png" />
+    <Resource Include="Images\Bullets.png" />
+    <Resource Include="Images\CenterAlign.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\Cut.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Italic.png" />
+    <Resource Include="Images\JustifyAlign.png" />
+    <Resource Include="Images\LeftAlign.png" />
+    <Resource Include="Images\Numbering.png" />
+    <Resource Include="Images\Paste.png" />
+    <Resource Include="Images\Redo.png" />
+    <Resource Include="Images\RightAlign.png" />
+    <Resource Include="Images\Underline.png" />
+    <Resource Include="Images\Undo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

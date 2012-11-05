@@ -3,8 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Loaded="UserControl_Loaded">
     <Grid>
-         
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <ToolBar x:Name="toolbarButtons">
+                    <Button x:Name="btnPaste" Click="btnPaste_Click">
+                        <Image Source="Images\Paste.png" />
+                    </Button>
+                    <Button x:Name="btnCopy" Click="btnCopy_Click">
+                        <Image Source="Images\Copy.png" />
+                    </Button>
+                    <Button x:Name="btnCut" Click="btnCut_Click">
+                        <Image Source="Images\Cut.png" />
+                    </Button>
+                    <Button x:Name="btnDelete" Click="btnDelete_Click">
+                        <Image Source="Images\Delete.png" />
+                    </Button>
+                    <Button x:Name="btnUndo" Click="btnUndo_Click">
+                        <Image Source="Images\Undo.png" />
+                    </Button>
+                    <Button x:Name="btnRedo" Click="btnRedo_Click">
+                        <Image Source="Images\Redo.png" />
+                    </Button>
+                    <ToggleButton x:Name="btnBold" Click="btnBold_Click">
+                        <Image Source="Images\Bold.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnItalic" Click="btnItalic_Click">
+                        <Image Source="Images\Italic.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnUnderline" Click="btnUnderline_Click">
+                        <Image Source="Images\Underline.png" />
+                    </ToggleButton>
+                    <ComboBox x:Name="comboFontFamily" Width="160" SelectedIndex="0"/>
+                    <ComboBox x:Name="comboFontSize" Width="45" SelectedIndex="15"/>
+                    <ToggleButton x:Name="btnLeftAlign" Click="btnLeftAlign_Click">
+                        <Image Source="Images\LeftAlign.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnCenterAlign" Click="btnCenterAlign_Click">
+                        <Image Source="Images\CenterAlign.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnRightAlign" Click="btnRightAlign_Click">
+                        <Image Source="Images\RightAlign.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnJustifyAlign" Click="btnJustifyAlign_Click">
+                        <Image Source="Images\JustifyAlign.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnBullets" Click="btnBullets_Click">
+                        <Image Source="Images\Bullets.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnNumbering" Click="btnNumbering_Click">
+                        <Image Source="Images\Numbering.png" />
+                    </ToggleButton>
+                </ToolBar>
+            </StackPanel>
+            <RichTextBox x:Name="rtbDocument" MinHeight="200" 
+                         Width="{Binding ElementName=toolbarButtons, Path=ActualWidth}"
+                         DockPanel.Dock="Bottom"
+                         VerticalScrollBarVisibility="Visible"/>
+        </DockPanel>
     </Grid>
 </UserControl>
