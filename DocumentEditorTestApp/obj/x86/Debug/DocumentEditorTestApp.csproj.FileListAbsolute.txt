@@ -1,0 +1,17 @@
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\DocumentEditorTestApp.exe
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\DocumentEditorTestApp.pdb
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditor.baml
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditor.g.cs
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\MainWindow.g.cs
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\App.g.cs
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp_MarkupCompile.cache
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp_MarkupCompile.lref
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\MainWindow.baml
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.g.resources
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.Properties.Resources.resources
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.exe
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.pdb
