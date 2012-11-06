@@ -15,3 +15,4 @@ E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GenerateRe
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GenerateResource.write.1.tlog
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.exe
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.pdb
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\WPFToolkit.Extended.dll
