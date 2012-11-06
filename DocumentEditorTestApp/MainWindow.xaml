@@ -4,6 +4,14 @@
         xmlns:this="clr-namespace:DocumentEditorTestApp" 
         Title="Document Editor Test App" SizeToContent="WidthAndHeight">
     <Grid>
-        <this:DocumentEditor />
+        <StackPanel>
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="Open *.docx" x:Name="menuItemOpenFile" Click="menuItemOpenFile_Click" />
+                    <MenuItem Header="Save *.docx" x:Name="menuItemSaveFile" Click="menuItemSaveFile_Click" />
+                </MenuItem>
+            </Menu>
+            <this:DocumentEditor x:Name="docEditor"/>
+        </StackPanel>
     </Grid>
 </Window>

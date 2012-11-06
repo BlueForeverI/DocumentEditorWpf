@@ -93,6 +93,7 @@
             </StackPanel>
             <RichTextBox x:Name="rtbDocument" MinHeight="200" 
                          Width="{Binding ElementName=toolbarButtons, Path=ActualWidth}"
+                         Height="400"
                          DockPanel.Dock="Bottom"
                          VerticalScrollBarVisibility="Visible"
                          SelectionChanged="rtbDocument_SelectionChanged"/>

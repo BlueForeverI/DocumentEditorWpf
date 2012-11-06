@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace DocumentEditorTestApp
 {
@@ -22,6 +24,25 @@ namespace DocumentEditorTestApp
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void menuItemOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if(dialog.ShowDialog() == true)
+            {
+                docEditor.OpenDocxFile(dialog.FileName);
+            }
+        }
+
+        private void menuItemSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            if(dialog.ShowDialog() == true)
+            {
+                FileStream saveFileStream = dialog.OpenFile() as FileStream;
+                docEditor.SaveDocxFile(saveFileStream);
+            }
         }
     }
 }

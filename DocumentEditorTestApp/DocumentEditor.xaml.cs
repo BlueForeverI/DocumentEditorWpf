@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -12,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO.Packaging;
+using System.Xml;
+using System.Xml.Linq;
+using OXMLWriter;
 
 namespace DocumentEditorTestApp
 {
@@ -138,6 +143,164 @@ namespace DocumentEditorTestApp
             {
                 colorPicker.SelectedColor = colorBrush.Color;
             }
+        }
+
+        public void OpenDocxFile(string fileName)
+        {
+            XElement wordDoc = null;
+
+            try
+            {
+                Package package = Package.Open(fileName);
+                Uri documentUri = new Uri("/word/document.xml", UriKind.Relative);
+                PackagePart documentPart = package.GetPart(documentUri);
+                wordDoc = XElement.Load(new StreamReader(documentPart.GetStream()));
+            }
+            catch (Exception)
+            {
+                this.rtbDocument.Document.Blocks.Add(new Paragraph(new Run("Cannot open file!")));
+                return;
+            }
+
+            XNamespace w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
+
+            var paragraphs = from p in wordDoc.Descendants(w + "p")
+                             select p;
+            foreach (var p in paragraphs)
+            {
+                var style = from s in p.Descendants(w + "pPr")
+                            select s;
+
+                var font = (from f in style.Descendants(w + "rFonts")
+                            select f.FirstAttribute).FirstOrDefault();
+
+                var size = (from s in style.Descendants(w + "sz")
+                            select s.FirstAttribute).FirstOrDefault();
+
+                var rgbColor = (from c in style.Descendants(w + "color")
+                             select c.FirstAttribute).FirstOrDefault();
+
+                var bold = (from b in style.Descendants(w + "b")
+                           select b).FirstOrDefault();
+
+                var italic = (from i in style.Descendants(w + "i")
+                             select i).FirstOrDefault();
+
+                var underline = (from u in style.Descendants(w + "u")
+                                select u).FirstOrDefault();
+
+                Paragraph par = new Paragraph();
+                Run run = new Run(p.Value);
+
+                if(font != null)
+                {
+                    FontFamilyConverter converter = new FontFamilyConverter();
+                    run.FontFamily = (FontFamily) converter.ConvertFrom(font.Value);
+                }
+
+                if(size != null)
+                {
+                    run.FontSize = double.Parse(size.Value);
+                }
+
+                if(rgbColor != null)
+                {
+                    Color color = ConvertRgbToColor(rgbColor.Value);
+                    run.Foreground = new SolidColorBrush(color);
+                }
+
+                if(bold != null)
+                {
+                    run.FontWeight = FontWeights.Bold;
+                }
+
+                if(italic != null)
+                {
+                    run.FontStyle = FontStyles.Italic;
+                }
+
+                if(underline != null)
+                {
+                    run.TextDecorations.Add(TextDecorations.Underline);
+                }
+
+                par.Inlines.Add(run);
+                this.rtbDocument.Document.Blocks.Add(par);
+            }
+        }
+
+        private Color ConvertRgbToColor(string rgbColor)
+        {
+            string rgbValue = rgbColor;
+
+            int redValue = Convert.ToInt32(rgbValue.Substring(0, 2), 16);
+            int greenValue = Convert.ToInt32(rgbValue.Substring(2, 2), 16);
+            int blueValue = Convert.ToInt32(rgbValue.Substring(4, 2), 16);
+
+            return Color.FromRgb((byte)redValue, (byte)greenValue, (byte)blueValue);
+        }
+
+        public void SaveDocxFile(FileStream xamlFile)
+        {
+            FlowDocument flowDoc = this.rtbDocument.Document;
+
+            TextPointer contentstart = flowDoc.ContentStart;
+            TextPointer contentend = flowDoc.ContentEnd;
+            if (contentstart == null)
+            {
+                throw new ArgumentNullException("ContentStart");
+            }
+            if (contentend == null)
+            {
+                throw new ArgumentNullException("ContentEnd");
+            }
+
+            //Create document
+
+            // document package container
+            Package zippackage = null;
+            zippackage = Package.Open(xamlFile, FileMode.Create, FileAccess.ReadWrite);
+
+            // main document.xml 
+            Uri uri = new Uri("/word/document.xml", UriKind.Relative);
+            PackagePart partDocumentXML = zippackage.CreatePart(uri, "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml");
+
+
+            //ver 1.2 Numbering
+            Uri uriNumbering = new Uri("/word/numbering.xml", UriKind.Relative);
+            Uri uriNumberingRelationship = new Uri("numbering.xml", UriKind.Relative);
+            PackagePart partNumberingXML = zippackage.CreatePart(uriNumbering, "application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml");
+            partDocumentXML.CreateRelationship(uriNumberingRelationship, TargetMode.Internal, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering", "rId1");
+
+
+
+            using (XmlTextWriter openxmlwriter = new XmlTextWriter(partDocumentXML.GetStream(FileMode.Create, FileAccess.Write), System.Text.Encoding.UTF8))
+            {
+                openxmlwriter.Formatting = Formatting.Indented;
+                openxmlwriter.Indentation = 2;
+                openxmlwriter.IndentChar = ' ';
+
+                //ver 1.2 
+                using (XmlTextWriter numberingwriter = new XmlTextWriter(partNumberingXML.GetStream(FileMode.Create, FileAccess.Write), System.Text.Encoding.UTF8))
+                {
+                    numberingwriter.Formatting = Formatting.Indented;
+                    numberingwriter.Indentation = 2;
+                    numberingwriter.IndentChar = ' ';
+
+                    //Actual Writing
+                    new OpenXmlWriter().Write(contentstart, contentend, openxmlwriter, numberingwriter);
+                }
+
+            }
+
+
+
+            zippackage.Flush();
+
+            // relationship 
+            zippackage.CreateRelationship(uri, TargetMode.Internal, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument", "rId1");
+            zippackage.Flush();
+            zippackage.Close();
         }
     }
 }
