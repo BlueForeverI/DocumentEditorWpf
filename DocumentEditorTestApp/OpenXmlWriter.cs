@@ -330,11 +330,11 @@ namespace OXMLWriter
                     if (xx>=0)
                         _openxmlwriter.WriteAttributeString("w:after", xx.ToString());
                     else
-                        _openxmlwriter.WriteAttributeString("w:after", "180");
+                        _openxmlwriter.WriteAttributeString("w:after", "0");
 
                 }
                 else
-                    _openxmlwriter.WriteAttributeString("w:after", "180");
+                    _openxmlwriter.WriteAttributeString("w:after", "0");
 
                 if (double.TryParse(stxtop, out chosenSizeTop))
                 {
@@ -342,12 +342,12 @@ namespace OXMLWriter
                     if (xx>=0)
                         _openxmlwriter.WriteAttributeString("w:before", xx.ToString());
                     else
-                        _openxmlwriter.WriteAttributeString("w:before", "180");
+                        _openxmlwriter.WriteAttributeString("w:before", "0");
 
                 }
                 else
                 {
-                    _openxmlwriter.WriteAttributeString("w:before", "180");
+                    _openxmlwriter.WriteAttributeString("w:before", "0");
 
                 }
                 

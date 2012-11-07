@@ -148,7 +148,7 @@ namespace DocumentEditorTestApp
         public void OpenDocxFile(string fileName)
         {
             XElement wordDoc = null;
-
+            
             try
             {
                 Package package = Package.Open(fileName);
@@ -168,8 +168,11 @@ namespace DocumentEditorTestApp
                              select p;
             foreach (var p in paragraphs)
             {
-                var style = from s in p.Descendants(w + "pPr")
+                var style = from s in p.Descendants(w + "rPr")
                             select s;
+
+                var parStyle = from s in p.Descendants(w + "pPr")
+                               select s;
 
                 var font = (from f in style.Descendants(w + "rFonts")
                             select f.FirstAttribute).FirstOrDefault();
@@ -189,8 +192,20 @@ namespace DocumentEditorTestApp
                 var underline = (from u in style.Descendants(w + "u")
                                 select u).FirstOrDefault();
 
+                var alignment = (from a in parStyle.Descendants(w + "jc")
+                                 select a).FirstOrDefault();
+
+                var textElements = from t in p.Descendants(w + "t")
+                                   select t;
+
+                StringBuilder text = new StringBuilder();
+                foreach (var element in textElements)
+                {
+                    text.Append(element.Value);
+                }
+
                 Paragraph par = new Paragraph();
-                Run run = new Run(p.Value);
+                Run run = new Run(text.ToString());
 
                 if(font != null)
                 {
@@ -211,17 +226,75 @@ namespace DocumentEditorTestApp
 
                 if(bold != null)
                 {
-                    run.FontWeight = FontWeights.Bold;
+                    if (bold.Attribute(w + "val") != null)
+                    {
+                        if (bold.Attribute(w + "val").Value == "off")
+                        {
+                            run.FontWeight = FontWeights.Normal;
+                        }
+                        else
+                        {
+                            run.FontWeight = FontWeights.Bold;
+                        }
+                    }
+                    else
+                    {
+                        run.FontWeight = FontWeights.Bold;
+                    }
                 }
 
                 if(italic != null)
                 {
-                    run.FontStyle = FontStyles.Italic;
+                    if (italic.Attribute(w + "val") != null)
+                    {
+                        if (italic.Attribute(w + "val").Value == "off")
+                        {
+                            run.FontStyle = FontStyles.Normal;
+                        }
+                        else
+                        {
+                            run.FontStyle = FontStyles.Italic;
+                        }
+                    }
+                    else
+                    {
+                        run.FontStyle = FontStyles.Italic;
+                    }
                 }
 
                 if(underline != null)
                 {
                     run.TextDecorations.Add(TextDecorations.Underline);
+                }
+
+                if(alignment != null)
+                {
+                    TextAlignment textAlignment = new TextAlignment();
+                    string value = alignment.Attribute(w + "val").Value;
+                    switch (value)
+                    {
+                        case "left":
+                            textAlignment = TextAlignment.Left;
+                            break;
+
+                        case "center":
+                            textAlignment = TextAlignment.Center;
+                            break;
+
+                        case "right":
+                            textAlignment = TextAlignment.Right;
+                            break;
+
+                        case "justify":
+                            textAlignment = TextAlignment.Justify;
+                            break;
+                    }
+
+                    par.TextAlignment = textAlignment;
+                }
+                else
+                {
+                    par.TextAlignment = TextAlignment.Left;
                 }
 
                 par.Inlines.Add(run);
