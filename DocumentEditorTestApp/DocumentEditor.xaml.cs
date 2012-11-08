@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using System.IO.Packaging;
 using System.Xml;
 using System.Xml.Linq;
-using OXMLWriter;
 
 namespace DocumentEditorTestApp
 {
@@ -198,6 +197,11 @@ namespace DocumentEditorTestApp
                 var textElements = from t in p.Descendants(w + "t")
                                    select t;
 
+                var list = (from l in parStyle.Descendants(w + "numPr")
+                           select l).FirstOrDefault();
+
+                
+
                 StringBuilder text = new StringBuilder();
                 foreach (var element in textElements)
                 {
@@ -206,6 +210,32 @@ namespace DocumentEditorTestApp
 
                 Paragraph par = new Paragraph();
                 Run run = new Run(text.ToString());
+
+                List items = new List();
+                if (list != null)
+                {
+                    //List items = new List();
+                    items.ListItems.Add(new ListItem(par));
+                    var markerStyleElement = (from l in list.Descendants(w + "numId")
+                                       select l).FirstOrDefault();
+
+                    TextMarkerStyle markerStyle = new TextMarkerStyle();
+                    if(markerStyleElement != null)
+                    {
+                        int value = int.Parse(markerStyleElement.Attribute(w + "val").Value);
+                        switch (value)
+                        {
+                            case 1:
+                                markerStyle = TextMarkerStyle.Disc;
+                                break;
+                            case 2:
+                                markerStyle = TextMarkerStyle.Decimal;
+                                break;
+                        }
+                    }
+
+                    items.MarkerStyle = markerStyle;
+                }
 
                 if(font != null)
                 {
@@ -298,7 +328,14 @@ namespace DocumentEditorTestApp
                 }
 
                 par.Inlines.Add(run);
-                this.rtbDocument.Document.Blocks.Add(par);
+                if(list != null)
+                {
+                    this.rtbDocument.Document.Blocks.Add(items);
+                }
+                else
+                {
+                    this.rtbDocument.Document.Blocks.Add(par);
+                }
             }
         }
 
@@ -313,10 +350,8 @@ namespace DocumentEditorTestApp
             return Color.FromRgb((byte)redValue, (byte)greenValue, (byte)blueValue);
         }
 
-        public void SaveDocxFile(FileStream xamlFile)
+        public void ConvertToOpenXml(FlowDocument flowDoc, Stream openXmlStream)
         {
-            FlowDocument flowDoc = this.rtbDocument.Document;
-
             TextPointer contentstart = flowDoc.ContentStart;
             TextPointer contentend = flowDoc.ContentEnd;
             if (contentstart == null)
@@ -332,7 +367,7 @@ namespace DocumentEditorTestApp
 
             // document package container
             Package zippackage = null;
-            zippackage = Package.Open(xamlFile, FileMode.Create, FileAccess.ReadWrite);
+            zippackage = Package.Open(openXmlStream, FileMode.Create, FileAccess.ReadWrite);
 
             // main document.xml 
             Uri uri = new Uri("/word/document.xml", UriKind.Relative);

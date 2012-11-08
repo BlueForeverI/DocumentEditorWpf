@@ -4,21 +4,15 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-namespace OXMLWriter
+using System;
+using System.Xml;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace DocumentEditorTestApp
 {
-
-    using System;
-    using System.IO;    
-    using System.Reflection;
-    using System.Security.Policy;
-    using System.Xml;
-    using System.Xml.Xsl;
-    using System.Xml.XPath;
-    using System.Windows;
-    using System.Windows.Documents;
-    using System.Windows.Controls;
-    using System.Windows.Media;           
-
     /// <summary>OpenXMLWriter</summary>
     class OpenXmlWriter
     {
