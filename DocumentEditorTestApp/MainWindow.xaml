@@ -9,6 +9,9 @@
                 <MenuItem Header="File">
                     <MenuItem Header="Open *.docx" x:Name="menuItemOpenFile" Click="menuItemOpenFile_Click" />
                     <MenuItem Header="Save *.docx" x:Name="menuItemSaveFile" Click="menuItemSaveFile_Click" />
+                    <Separator />
+                    <MenuItem Header="Open *.html" x:Name="menuItemOpenHtml" Click="menuItemOpenHtml_Click" />
+                    <MenuItem Header="Save *.html" x:Name="menuItemSaveHtml" Click="menuItemSaveHtml_Click" />
                 </MenuItem>
             </Menu>
             <this:DocumentEditor x:Name="docEditor"/>

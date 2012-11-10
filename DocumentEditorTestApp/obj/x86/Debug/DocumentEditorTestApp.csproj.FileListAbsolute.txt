@@ -16,3 +16,6 @@ E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\GenerateRe
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.exe
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\obj\x86\Debug\DocumentEditorTestApp.pdb
 E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\WPFToolkit.Extended.dll
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\NiPDF.dll
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\Html2Xaml.dll
+E:\Dev\Projects\DocumentEditorWpf\DocumentEditorTestApp\bin\Debug\Html2Xaml.pdb

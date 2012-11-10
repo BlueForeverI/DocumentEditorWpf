@@ -40,9 +40,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="Html2Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Html2Xaml\Html2Xaml\bin\Debug\Html2Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="NiPDF">
+      <HintPath>C:\Users\George\Downloads\NiPDF.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PdfConvertor.cs" />
     <Compile Include="WordProcessor.cs" />
     <Page Include="DocumentEditor.xaml">
       <SubType>Designer</SubType>
