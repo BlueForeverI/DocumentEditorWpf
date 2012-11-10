@@ -40,10 +40,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="Html2Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Html2Xaml\Html2Xaml\bin\Debug\Html2Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="NiPDF">
       <HintPath>C:\Users\George\Downloads\NiPDF.dll</HintPath>
     </Reference>
@@ -135,6 +131,18 @@
     <Resource Include="Images\RightAlign.png" />
     <Resource Include="Images\Underline.png" />
     <Resource Include="Images\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Indent.png" />
+    <Resource Include="Images\IndentRemove.png" />
+    <Resource Include="Images\Subscript.png" />
+    <Resource Include="Images\Superscript.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Html2Xaml\Html2Xaml\Html2Xaml.csproj">
+      <Project>{C7D27885-74DF-4D93-ABB9-FFC7C9F135F5}</Project>
+      <Name>Html2Xaml</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

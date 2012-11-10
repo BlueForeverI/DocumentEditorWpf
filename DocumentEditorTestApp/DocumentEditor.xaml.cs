@@ -24,6 +24,8 @@ namespace DocumentEditorTestApp
     /// </summary>
     public partial class DocumentEditor : UserControl
     {
+        private const double INDENT_SIZE = 20;
+
         public DocumentEditor()
         {
             InitializeComponent();
@@ -52,6 +54,8 @@ namespace DocumentEditorTestApp
             UpdateItemCheckedState(btnRightAlign, Paragraph.TextAlignmentProperty, TextAlignment.Right);
             UpdateItemCheckedState(btnCenterAlign, Paragraph.TextAlignmentProperty, TextAlignment.Center);
             UpdateItemCheckedState(btnJustifyAlign, Paragraph.TextAlignmentProperty, TextAlignment.Justify);
+            UpdateItemCheckedState(btnSuperscript, Inline.BaselineAlignmentProperty, BaselineAlignment.Superscript);
+            UpdateItemCheckedState(btnSubscript, Inline.BaselineAlignmentProperty, BaselineAlignment.Subscript);
 
             UpdateSelectionListType();
             UpdateSelectedFontFamily();
@@ -409,6 +413,41 @@ namespace DocumentEditorTestApp
             zippackage.CreateRelationship(uri, TargetMode.Internal, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument", "rId1");
             zippackage.Flush();
             zippackage.Close();
+        }
+
+        private void btnSubscript_Click(object sender, RoutedEventArgs e)
+        {
+            var currentAlignment = rtbDocument.Selection.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            BaselineAlignment newAlignment = ((BaselineAlignment) currentAlignment == BaselineAlignment.Subscript)
+                                                 ? BaselineAlignment.Baseline
+                                                 : BaselineAlignment.Subscript;
+            rtbDocument.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, newAlignment);
+        }
+
+        private void btnSuperscript_Click(object sender, RoutedEventArgs e)
+        {
+            var currentAlignment = rtbDocument.Selection.GetPropertyValue(Inline.BaselineAlignmentProperty);
+
+            BaselineAlignment newAlignment = ((BaselineAlignment)currentAlignment == BaselineAlignment.Superscript)
+                                                 ? BaselineAlignment.Baseline
+                                                 : BaselineAlignment.Superscript;
+            rtbDocument.Selection.ApplyPropertyValue(Inline.BaselineAlignmentProperty, newAlignment);
+        }
+
+        private void btnIncreaseIndent_Click(object sender, RoutedEventArgs e)
+        {
+            var currentIndent = rtbDocument.Selection.GetPropertyValue(Paragraph.TextIndentProperty);
+            rtbDocument.Selection.ApplyPropertyValue(Paragraph.TextIndentProperty, (double)currentIndent + INDENT_SIZE);
+        }
+
+        private void btnDecreaseIndent_Click(object sender, RoutedEventArgs e)
+        {
+            var currentIndent = rtbDocument.Selection.GetPropertyValue(Paragraph.TextIndentProperty);
+            if ((double)currentIndent != 0)
+            {
+                rtbDocument.Selection.ApplyPropertyValue(Paragraph.TextIndentProperty, (double) currentIndent - INDENT_SIZE);
+            }
         }
     }
 }

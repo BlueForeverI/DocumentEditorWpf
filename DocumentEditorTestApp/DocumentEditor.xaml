@@ -89,6 +89,22 @@
                             CommandTarget="{Binding ElementName=rtbDocument}">
                         <Image Source="Images\Numbering.png" />
                     </ToggleButton>
+                    <ToggleButton x:Name="btnSuperscript"
+                            Click="btnSuperscript_Click">
+                        <Image Source="Images\Superscript.png" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="btnSubscript"
+                            Click="btnSubscript_Click">
+                        <Image Source="Images\Subscript.png" />
+                    </ToggleButton>
+                    <Button x:Name="btnIncreaseIndent"
+                            Click="btnIncreaseIndent_Click">
+                        <Image Source="Images\Indent.png" />
+                    </Button>
+                    <Button x:Name="btnDecreaseIndent"
+                            Click="btnDecreaseIndent_Click">
+                        <Image Source="Images\IndentRemove.png" />
+                    </Button>
                 </ToolBar>
             </StackPanel>
             <RichTextBox x:Name="rtbDocument" MinHeight="200" 
