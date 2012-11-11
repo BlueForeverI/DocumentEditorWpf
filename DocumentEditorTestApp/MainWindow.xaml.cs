@@ -73,7 +73,7 @@ namespace DocumentEditorTestApp
                 string xamlContent = XamlWriter.Save(this.docEditor.rtbDocument.Document);
                 string htmlContent = HTMLConverter.HtmlFromXamlConverter.ConvertXamlToHtml(xamlContent);
                 string formattedHtml = FormatHtml(htmlContent);
-                File.WriteAllText(dialog.FileName, formattedHtml);
+                File.WriteAllText(dialog.FileName, formattedHtml, Encoding.UTF8);
             }
         }
 
